@@ -39,21 +39,19 @@ const Model = () => {
   const tl = gsap.timeline();
 
   useEffect(() => {
-
-     if(size === 'large') {
-      animateWithGsapTimeline(tl, small, smallRotation, '#view1', '#view2', {
-        transform: 'translateX(-100%)',
-        duration: 2
-      })
+    if (size === "large") {
+      animateWithGsapTimeline(tl, small, smallRotation, "#view1", "#view2", {
+        transform: "translateX(-100%)",
+        duration: 2,
+      });
     }
 
-    if(size ==='small') {
-      animateWithGsapTimeline(tl, large, largeRotation, '#view2', '#view1', {
-        transform: 'translateX(0)',
-        duration: 2
-      })
+    if (size === "small") {
+      animateWithGsapTimeline(tl, large, largeRotation, "#view2", "#view1", {
+        transform: "translateX(0)",
+        duration: 2,
+      });
     }
-
   }, [size]);
 
   useGSAP(() => {
@@ -64,14 +62,14 @@ const Model = () => {
   }, []);
 
   return (
-    <section className="common-padding">
+    <section className="common-padding overflow-x-hidden">
       <div className="screen-max-width">
         <h1 id="heading" className="section-heading">
           Take a closer look
         </h1>
 
         <div className="flex flex-col items-center mt-5">
-          <div className="w-full h-[75vh] md:h-[90vh] overflow-hidden relative">
+          <div className="w-full h-[75vh] md:h-[90vh] overflow-hidden overflow-x-hidden relative">
             <ModelView
               index={1}
               groupRef={small}
@@ -93,7 +91,7 @@ const Model = () => {
             <Canvas
               className="w-full h-full"
               style={{
-                position: "fixed",
+                position: "absolute",
                 top: 0,
                 bottom: 0,
                 left: 0,
@@ -107,9 +105,7 @@ const Model = () => {
           </div>
 
           <div className="mx-auto w-full">
-            <p className="text-sm font-light text-center mb-5">
-              {model.title}
-            </p>
+            <p className="text-sm font-light text-center mb-5">{model.title}</p>
 
             <div className="flex-center">
               <ul className="color-container">
@@ -131,8 +127,7 @@ const Model = () => {
                     key={label}
                     className="size-btn cursor-pointer"
                     style={{
-                      background:
-                        size === value ? "white" : "transparent",
+                      background: size === value ? "white" : "transparent",
                       color: size === value ? "black" : "white",
                     }}
                     onClick={() => setSize(value)}
