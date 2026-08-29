@@ -79,7 +79,6 @@ const Model = () => {
               controlRef={cameraControlSmall}
               setRotationState={setSmallRotation}
               item={model}
-              size={size}
             />
 
             <ModelView
@@ -89,7 +88,6 @@ const Model = () => {
               controlRef={cameraControlLarge}
               setRotationState={setLargeRotation}
               item={model}
-              size={size}
             />
 
             <Canvas

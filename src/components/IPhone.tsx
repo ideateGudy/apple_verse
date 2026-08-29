@@ -82,28 +82,38 @@ type GLTFResult = GLTF & {
   };
 };
 
-export function Model(props: ThreeElements["group"]) {
+type ModelProps = ThreeElements["group"] & {
+  item: {
+    title: string;
+    color: string[];
+    img: string;
+  };
+};
+
+
+export function Model({ item, ...props }: ModelProps) {
   const { nodes, materials } = useGLTF(
     "/models/scene.glb",
   ) as unknown as GLTFResult;
 
-  const texture = useTexture(props.item.img);
+  const texture = useTexture(item.img);
 
   useEffect(() => {
-    Object.entries(materials).map((material) => {
-      // these are the material names that can't be changed color
+    Object.entries(materials).forEach(([name, material]) => {
+      // These are the material names that can't be changed color
       if (
-        material[0] !== "zFdeDaGNRwzccye" &&
-        material[0] !== "ujsvqBWRMnqdwPx" &&
-        material[0] !== "hUlRcbieVuIiOXG" &&
-        material[0] !== "jlzuBkUzuJqgiAK" &&
-        material[0] !== "xNrofRCqOXXHVZt"
+        name !== "zFdeDaGNRwzccye" &&
+        name !== "ujsvqBWRMnqdwPx" &&
+        name !== "hUlRcbieVuIiOXG" &&
+        name !== "jlzuBkUzuJqgiAK" &&
+        name !== "xNrofRCqOXXHVZt"
       ) {
-        material[1].color = new THREE.Color(props.item.color[0]);
+        material.color = new THREE.Color(item.color[0]);
       }
-      material[1].needsUpdate = true;
+
+      material.needsUpdate = true;
     });
-  }, [materials, props.item]);
+  }, [materials, item]);
 
   return (
     <group {...props} dispose={null}>
